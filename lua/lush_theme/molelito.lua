@@ -61,6 +61,8 @@ local slate = {
 }
 
 local pink = {
+    [200] = hsl("#fbcfe8"),
+    [300] = hsl("#f9a8d4"),
     [400] = hsl("#f472b6"),
 }
 
@@ -132,8 +134,8 @@ local theme = lush(function(injected_functions)
         MoreMsg        { fg = green[200] }, -- |more-prompt|
         -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
         Normal         { fg = slate[50], bg = slate[850] }, -- Normal text
-        -- NormalFloat    { }, -- Normal text in floating windows.
-        -- FloatBorder    { }, -- Border of floating windows.
+        NormalFloat    { bg = slate[840] }, -- Normal text in floating windows.
+        FloatBorder    { bg = slate[860] }, -- Border of floating windows.
         -- FloatTitle     { }, -- Title of floating windows.
         -- NormalNC       { }, -- normal text in non-current windows
         Pmenu          { bg = slate[840] }, -- Popup menu: Normal item.
@@ -162,7 +164,7 @@ local theme = lush(function(injected_functions)
         -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
         -- WarningMsg     { }, -- Warning messages
         -- Whitespace     { }, -- "n6sp", "space", "tab" and "trail" in 'listchars'
-        -- Winseparator   { }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
+        Winseparator   { fg = slate[850] }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
         -- WildMenu       { }, -- Current match in 'wildmenu' completion
         -- WinBar         { }, -- Window bar of current window
         -- WinBarNC       { }, -- Window bar of not-current windows
@@ -185,9 +187,9 @@ local theme = lush(function(injected_functions)
         -- Float          { }, --   A floating point constant: 2.3e10
 
         Identifier     { fg = slate[50] }, -- (*) Any variable name
-        Function       { fg = pink[400] }, --   Function name (also: methods for classes)
+        Function       { fg = slate[50] }, --{ fg = pink[400] }, --   Function name (also: methods for classes)
 
-        Statement      { fg = slate[400] }, -- (*) Any statement
+        Statement      { fg = slate[500] }, -- (*) Any statement
         -- Conditional    { }, --   if, then, else, endif, switch, etc.
         -- Repeat         { }, --   for, do, while, etc.
         -- Label          { }, --   case, default, etc.
@@ -233,21 +235,21 @@ local theme = lush(function(injected_functions)
 
         -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
         --
-        -- DiagnosticError            { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticError            { ErrorMsg } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
         -- DiagnosticWarn             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticInfo             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticHint             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticInfo             { String } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticHint             { Special } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticOk               { Question } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
         -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
         -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
         -- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
         -- DiagnosticVirtualTextHint  { } , -- Used for "Hint" diagnostic virtual text.
         -- DiagnosticVirtualTextOk    { } , -- Used for "Ok" diagnostic virtual text.
-        -- DiagnosticUnderlineError   { } , -- Used to underline "Error" diagnostics.
-        -- DiagnosticUnderlineWarn    { } , -- Used to underline "Warn" diagnostics.
-        -- DiagnosticUnderlineInfo    { } , -- Used to underline "Info" diagnostics.
-        -- DiagnosticUnderlineHint    { } , -- Used to underline "Hint" diagnostics.
-        -- DiagnosticUnderlineOk      { } , -- Used to underline "Ok" diagnostics.
+        DiagnosticUnderlineError   { gui = "nocombine" } , -- Used to underline "Error" diagnostics.
+        DiagnosticUnderlineWarn    { gui = "nocombine" } , -- Used to underline "Warn" diagnostics.
+        DiagnosticUnderlineInfo    { gui = "nocombine" } , -- Used to underline "Info" diagnostics.
+        DiagnosticUnderlineHint    { gui = "nocombine" } , -- Used to underline "Hint" diagnostics.
+        DiagnosticUnderlineOk      { gui = "nocombine" } , -- Used to underline "Ok" diagnostics.
         -- DiagnosticFloatingError    { } , -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
         -- DiagnosticFloatingWarn     { } , -- Used to color "Warn" diagnostic messages in diagnostics float.
         -- DiagnosticFloatingInfo     { } , -- Used to color "Info" diagnostic messages in diagnostics float.
@@ -299,8 +301,8 @@ local theme = lush(function(injected_functions)
         -- sym"@number"            { }, -- Number
         -- sym"@boolean"           { }, -- Boolean
         -- sym"@float"             { }, -- Float
-        -- sym"@function"          { }, -- Function
-        sym"@function.builtin"  { Function }, -- Special
+        sym"@function"          { fg = pink[300] }, -- Function
+        sym"@function.builtin"  { Identifier }, -- Special
         -- sym"@function.macro"    { }, -- Macro
         -- sym"@parameter"         { }, -- Identifier
         -- sym"@method"            { }, -- Function
@@ -325,6 +327,7 @@ local theme = lush(function(injected_functions)
         -- sym"@tag"               { }, -- Tag
 
         sym"@type.qualifier"    { Statement },
+        sym"@keyword.sql"       { Function },
 
         -- Telescope highlight groups.
         -- TelescopeNormal         { }
@@ -379,10 +382,13 @@ local theme = lush(function(injected_functions)
         -- Lazy
         LazyButton              { Constant },
         LazyButtonActive        { fg = slate[840], bg = sky[300] },
+        LazyComment             { Comment },
+        LazyDimmed              { Special },
         LazyH1                  { LazyButtonActive },
         LazyH2                  { String },
-        LazyComment             { Comment },
         LazyLocal               { Comment },
+        LazyProgressDone        { String },
+        LazyProgressTodo        { Comment },
         LazyReasonEvent         { Special },
         LazyReasonPlugin        { Comment },
         LazyReasonRequire       { Special },
@@ -390,10 +396,11 @@ local theme = lush(function(injected_functions)
         LazySpecial             { Special },
 
         -- Mason
-        MasonMutedBlock         { LazyButton },
-        MasonHighlightBlockBold { LazyButtonActive },
         MasonHeader             { LazyButtonActive },
         MasonHeading            { LazyH2 },
+        MasonHighlightBlockBold { LazyButtonActive },
+        MasonMuted              { Special },
+        MasonMutedBlock         { LazyButton },
 
         -- CMP
         CmpDocNormal            { bg = slate[860] },
@@ -402,6 +409,9 @@ local theme = lush(function(injected_functions)
         CmpItemAbbrMatchFuzzy   { CmpItemAbbrMatch },
         CmpItemMenu             { Comment },
         CmpItemKind             { String },
+
+        -- Copilot
+        CopilotSuggestion       { Special },
     }
 end)
 
