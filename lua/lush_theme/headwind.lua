@@ -61,26 +61,43 @@ local slate = {
 }
 
 local pink = {
-    [200] = hsl("#fbcfe8"),
-    [300] = hsl("#f9a8d4"),
-    [400] = hsl("#f472b6"),
+    [200] = "#fccee8",
+    [300] = "#fda5d5",
+    [400] = "#fb64b6",
 }
 
 local sky = {
-    [200] = hsl("#bae6fd"),
-    [300] = hsl("#7dd3fc"),
-    [500] = hsl("#0ea5e9"),
-    [900] = hsl("#0c4a6e"),
-    [950] = hsl("#082f49"),
+    [200] = "#b8e6fe",
+    [300] = "#74d4ff",
+    [400] = "#00bcff",
+    [500] = "#00a6f4",
+    [900] = "#024a70",
 }
 
 local green = {
-    [200] = hsl("#bbf7d0"),
+    [200] = "#b9f8cf",
+    [300] = "#7bf1a8",
+    [400] = "#05df72",
+    [500] = "#00c951",
 }
 
-slate[850] = slate[900].desaturate(20)
-slate[840] = slate[850].lighten(3)
-slate[860] = slate[850].darken(9)
+local gray = {
+    [50] = "#f9fafb",
+    [100] = "#f3f4f6",
+    [200] = "#e5e7eb",
+    [300] = "#d1d5dc",
+    [400] = "#99a1af",
+    [500] = "#6a7282",
+    [600] = "#4a5565",
+    [700] = "#364153",
+    [800] = "#1e2939",
+    [900] = "#101828",
+    [950] = "#030712",
+}
+
+-- Custom colors
+gray[935] = hsl(gray[950]).lighten(3).desaturate(25)
+gray[945] = hsl(gray[950]).lighten(1)
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
@@ -99,72 +116,72 @@ local theme = lush(function(injected_functions)
         -- See :h highlight-groups
         --
         -- ColorColumn    { bg = "#ff0000", fg = "#ff0000" }, -- Columns set with 'colorcolumn'
-        Conceal        { fg = slate[100], bg = slate[700] }, -- Placeholder characters substituted for concealed text (see 'conceallevel') 
-        Cursor         { fg = slate[850], bg = sky[300] }, -- Character under the cursor
+        Conceal        { fg = gray[100], bg = gray[700] }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
+        Cursor         { fg = gray[950], bg = sky[300] }, -- Character under the cursor
         CurSearch      { bg = sky[500] }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
         -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
         -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
         -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-        CursorLine     { bg = slate[860] }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+        CursorLine     { bg = gray[920] }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
         Directory      { fg = sky[300] }, -- Directory names (and other special names in listings)
-        DiffAdd        { fg = green[200], bg = slate[850] }, -- Diff mode: Added line |diff.txt|
-        DiffChange     { fg = sky[300], bg = slate[850] }, -- Diff mode: Changed line |diff.txt|
-        DiffDelete     { fg = pink[400], bg = slate[850] }, -- Diff mode: Deleted line |diff.txt|
+        DiffAdd        { fg = green[200], bg = gray[950] }, -- Diff mode: Added line |diff.txt|
+        DiffChange     { fg = sky[300], bg = gray[950] }, -- Diff mode: Changed line |diff.txt|
+        DiffDelete     { fg = pink[400], bg = gray[950] }, -- Diff mode: Deleted line |diff.txt|
         DiffText       { Conceal }, -- Diff mode: Changed text within a changed line |diff.txt|
-        EndOfBuffer    { fg = slate[850] }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+        EndOfBuffer    { fg = gray[950] }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         -- TermCursor     { }, -- Cursor in a focused terminal
         -- TermCursorNC   { }, -- Cursor in an unfocused terminal
-        ErrorMsg       { bg = slate[850], fg = pink[400] }, -- Error messages on the command line
-        VertSplit      { fg = slate[850] }, -- Column separating vertically split windows
-        Folded         { fg = sky[300], bg = slate[850] }, -- Line used for closed folds
-        FoldColumn     { fg = sky[300], bg = slate[850] }, -- 'foldcolumn'
-        SignColumn     { bg = slate[850] } , -- Column where |signs| are displayed
-        IncSearch      { fg = slate[850], bg = sky[300] }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+        ErrorMsg       { fg = pink[400] }, -- Error messages on the command line
+        VertSplit      { fg = gray[950] }, -- Column separating vertically split windows
+        Folded         { fg = sky[300], bg = gray[950] }, -- Line used for closed folds
+        FoldColumn     { fg = sky[300], bg = gray[950] }, -- 'foldcolumn'
+        --SignColumn     { bg = gray[850] } , -- Column where |signs| are displayed
+        IncSearch      { fg = gray[950], bg = sky[300] }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
         -- Substitute     { }, -- |:substitute| replacement text highlighting
-        LineNr         { fg = slate[700] }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+        LineNr         { fg = gray[700] }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
         -- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
         -- LineNrBelow    { }, -- Line number for when the 'relativenumber' option is set, below the cursor line
-        CursorLineNr   { fg = slate[500] }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+        CursorLineNr   { fg = gray[700] }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
         -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
         -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
-        MatchParen     { fg = slate[100], bg = slate[600] }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+        MatchParen     { fg = gray[100], bg = gray[600] }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
         -- ModeMsg        { }, -- 'showmode' message (e.g., "-- INSERT -- ")
         -- MsgArea        { }, -- Area for messages and cmdline
         -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
         MoreMsg        { fg = green[200] }, -- |more-prompt|
         -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-        Normal         { fg = slate[50], bg = slate[850] }, -- Normal text
-        NormalFloat    { bg = slate[840] }, -- Normal text in floating windows.
-        FloatBorder    { bg = slate[860] }, -- Border of floating windows.
+        Normal         { fg = gray[50], bg = gray[950] }, -- Normal text
+        NormalFloat    { bg = gray[905] }, -- Normal text in floating windows.
+        FloatBorder    { bg = gray[915] }, -- Border of floating windows.
         -- FloatTitle     { }, -- Title of floating windows.
         -- NormalNC       { }, -- normal text in non-current windows
-        Pmenu          { bg = slate[840] }, -- Popup menu: Normal item.
-        PmenuSel       { fg = slate[840], bg = sky[300] }, -- Popup menu: Selected item.
+        Pmenu          { bg = gray[905] }, -- Popup menu: Normal item.
+        PmenuSel       { fg = gray[905], bg = sky[300] }, -- Popup menu: Selected item.
         -- PmenuKind      { }, -- Popup menu: Normal item "kind"
         -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
         -- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
         -- PmenuExtraSel  { }, -- Popup menu: Selected item "extra text"
-        PmenuSbar      { bg = slate[840] }, -- Popup menu: Scrollbar.
-        PmenuThumb     { bg = slate[700] }, -- Popup menu: Thumb of the scrollbar.
+        PmenuSbar      { bg = gray[905] }, -- Popup menu: Scrollbar.
+        PmenuThumb     { bg = gray[700] }, -- Popup menu: Thumb of the scrollbar.
         Question       { fg = green[200] }, -- |hit-enter| prompt and yes/no questions
         -- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-        Search         { fg = slate[850], bg = sky[300] }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+        Search         { fg = gray[950], bg = sky[300] }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
         -- SpecialKey     { }, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
         -- SpellBad       { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
         -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
         -- SpellLocal     { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
         -- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-        -- StatusLine     { }, -- Status line of current window
-        -- StatusLineNC   { }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+        StatusLine     { }, -- Status line of current window
+        StatusLineNC   { }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
         -- TabLine        { }, -- Tab pages line, not active tab page label
         -- TabLineFill    { }, -- Tab pages line, where there are no labels
         -- TabLineSel     { }, -- Tab pages line, active tab page label
         Title          { fg = pink[400] }, -- Titles for output from ":set all", ":autocmd" etc.
-        Visual         { fg = slate[300], bg = slate[700] }, -- Visual mode selection
+        Visual         { fg = gray[300], bg = gray[700] }, -- Visual mode selection
         -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
         -- WarningMsg     { }, -- Warning messages
         -- Whitespace     { }, -- "n6sp", "space", "tab" and "trail" in 'listchars'
-        Winseparator   { fg = slate[850] }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
+        Winseparator   { fg = gray[950] }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
         -- WildMenu       { }, -- Current match in 'wildmenu' completion
         -- WinBar         { }, -- Window bar of current window
         -- WinBarNC       { }, -- Window bar of not-current windows
@@ -177,42 +194,42 @@ local theme = lush(function(injected_functions)
         --
         -- Uncomment and edit if you want more specific syntax highlighting.
 
-        Comment        { fg = slate[700] }, -- Any comment
+        Comment        { fg = gray[700] }, -- Any comment
 
-        Constant       { fg = slate[50] }, -- (*) Any constant
+        Constant       { fg = gray[50] }, -- (*) Any constant
         String         { fg = sky[300] }, --   A string constant: "this is a string"
         -- Character      { }, --   A character constant: 'c', '\n'
         -- Number         { }, --   A number constant: 234, 0xff
-        -- Boolean        { }, --   A boolean constant: TRUE, false
+        Boolean        { fg = sky[300] }, --   A boolean constant: TRUE, false
         -- Float          { }, --   A floating point constant: 2.3e10
 
-        Identifier     { fg = slate[50] }, -- (*) Any variable name
-        Function       { fg = slate[50] }, --{ fg = pink[400] }, --   Function name (also: methods for classes)
+        Identifier     { fg = gray[50] }, -- (*) Any variable name
+        Function       { fg = gray[50] }, --{ fg = pink[400] }, --   Function name (also: methods for classes)
 
-        Statement      { fg = slate[500] }, -- (*) Any statement
+        Statement      { fg = gray[500] }, -- (*) Any statement
         -- Conditional    { }, --   if, then, else, endif, switch, etc.
         -- Repeat         { }, --   for, do, while, etc.
         -- Label          { }, --   case, default, etc.
-        -- Operator       { }, --   "sizeof", "+", "*", etc.
+        Operator       { fg = gray[500] }, --   "sizeof", "+", "*", etc.
         -- Keyword        { }, --   any other keyword
         -- Exception      { }, --   try, catch, throw
 
-        PreProc        { fg = slate[500] }, -- (*) Generic Preprocessor
+        PreProc        { fg = gray[500] }, -- (*) Generic Preprocessor
         -- Include        { }, --   Preprocessor #include
         -- Define         { }, --   Preprocessor #define
         -- Macro          { }, --   Same as Define
         -- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-        Type           { fg = slate[50] }, -- (*) int, long, char, etc.
+        Type           { Statement }, -- (*) int, long, char, etc.
         -- StorageClass   { }, --   static, register, volatile, etc.
         -- Structure      { }, --   struct, union, enum, etc.
         -- Typedef        { }, --   A typedef
 
-        Special        { fg = slate[500] }, -- (*) Any special symbol
+        Special        { fg = gray[500] }, -- (*) Any special symbol
         -- SpecialChar    { }, --   Special character in a constant
         -- Tag            { }, --   You can use CTRL-] on this
         -- Delimiter      { }, --   Character that needs attention
-        SpecialComment { fg = slate[600] }, --   Special things inside a comment (e.g. '\n')
+        SpecialComment { fg = gray[600] }, --   Special things inside a comment (e.g. '\n')
         -- Debug          { }, --   Debugging statements
 
         -- Underlined     { gui = "underline" }, -- Text that stands out, HTML links
@@ -279,8 +296,8 @@ local theme = lush(function(injected_functions)
         -- For more information see https://github.com/rktjmp/lush.nvim/issues/109
 
         -- sym"@text.literal"      { }, -- Comment
-        sym"@text.literal.block.vimdoc"      { CursorLineNr }, -- Vimdoc
-        sym"@text.literal.vimdoc"     { String }, -- Vimdoc
+        sym"@text.literal.block.vimdoc" { CursorLineNr }, -- Vimdoc
+        sym"@text.literal.vimdoc" { String }, -- Vimdoc
         -- sym"@text.reference"    { }, -- Identifier
         -- sym"@text.title"        { }, -- Title
         -- sym"@text.uri"          { }, -- Underlined
@@ -328,43 +345,50 @@ local theme = lush(function(injected_functions)
 
         sym"@type.qualifier"    { Statement },
         sym"@keyword.sql"       { Function },
+        -- sym"@constructor.typescript" { Comment },
+        sym"@type.typescript"   { Statement },
 
-        -- Telescope highlight groups.
+        -- Telescope
         -- TelescopeNormal         { }
         -- TelescopeBorder         { }
         -- TelescopePromptPrefix   { }
         TelescopeMatching       { fg = sky[300] },
-        TelescopeSelection      { bg = slate[840] },
-        TelescopeSelectionCaret { fg = sky[300], bg = slate[840] },
+        TelescopeSelection      { bg = gray[905] },
+        TelescopeSelectionCaret { fg = sky[300], bg = gray[935] },
 
-        TelescopePromptNormal   { fg = slate[50], bg = slate[860] },
-        TelescopePromptBorder   { fg = slate[860], bg = slate[860] },
-        TelescopePromptTitle    { fg = slate[860], bg = slate[860] },
-        TelescopePromptCounter  { fg = slate[700] },
+        TelescopePromptNormal   { fg = gray[50], bg = gray[945] },
+        TelescopePromptBorder   { fg = gray[945], bg = gray[945] },
+        TelescopePromptTitle    { fg = gray[945], bg = gray[945] },
+        TelescopePromptCounter  { fg = gray[700] },
 
-        TelescopePreviewNormal  { fg = slate[50], bg = slate[840] },
-        TelescopePreviewBorder  { fg = slate[840], bg = slate[840] },
-        TelescopePreviewTitle   { fg = slate[840], bg = pink[400] },
+        TelescopePreviewNormal  { fg = gray[50], bg = gray[935] },
+        TelescopePreviewBorder  { fg = gray[935], bg = gray[935] },
+        TelescopePreviewTitle   { fg = gray[935], bg = pink[400] },
 
-        TelescopeResultsNormal  { fg = slate[50], bg = slate[860] },
-        TelescopeResultsBorder  { fg = slate[860], bg = slate[860] },
-        TelescopeResultsTitle   { fg = slate[860], bg = sky[300] },
+        TelescopeResultsNormal  { fg = gray[50], bg = gray[945] },
+        TelescopeResultsBorder  { fg = gray[945], bg = gray[945] },
+        TelescopeResultsTitle   { fg = gray[945], bg = sky[300] },
 
         -- Alpha
-        AlphaStartLogo1         { fg = sky[200].darken(53) },
-        AlphaStartLogo2         { fg = sky[200].darken(50) },
-        AlphaStartLogo3         { fg = sky[200].darken(47) },
-        AlphaStartLogo4         { fg = sky[200].darken(44) },
-        AlphaStartLogo5         { fg = sky[200].darken(41) },
-        AlphaStartLogo6         { fg = sky[200].darken(38) },
-        AlphaStartLogo7         { fg = sky[200].darken(35) },
-        AlphaStartLogo8         { fg = sky[200].darken(32) },
-        AlphaStartLogo9         { fg = sky[200].darken(29) },
-        AlphaStartLogo10        { fg = sky[200].darken(26) },
-        AlphaStartLogo11        { fg = sky[200].darken(23) },
-        AlphaStartLogo12        { fg = sky[200].darken(20) },
+        AlphaStartLogo1         { fg = hsl(sky[200]).darken(53) },
+        AlphaStartLogo2         { fg = hsl(sky[200]).darken(50) },
+        AlphaStartLogo3         { fg = hsl(sky[200]).darken(47) },
+        AlphaStartLogo4         { fg = hsl(sky[200]).darken(44) },
+        AlphaStartLogo5         { fg = hsl(sky[200]).darken(41) },
+        AlphaStartLogo6         { fg = hsl(sky[200]).darken(38) },
+        AlphaStartLogo7         { fg = hsl(sky[200]).darken(35) },
+        AlphaStartLogo8         { fg = hsl(sky[200]).darken(32) },
+        AlphaStartLogo9         { fg = hsl(sky[200]).darken(29) },
+        AlphaStartLogo10        { fg = hsl(sky[200]).darken(26) },
+        AlphaStartLogo11        { fg = hsl(sky[200]).darken(23) },
+        AlphaStartLogo12        { fg = hsl(sky[200]).darken(20) },
+
+        -- Bufferline
+        BufferlineBufferVisible  { fg = sky[200], bg = gray[915] },
+        BufferlineBufferSelected { fg = sky[300], bg = gray[915] },
 
         -- NvimTree
+        NvimTreeNormal          { Normal },
         NvimTreeIndentMarker    { Comment },
         NvimTreeRootFolder      { Special },
         NvimTreeFolderIcon      { Directory },
@@ -381,7 +405,7 @@ local theme = lush(function(injected_functions)
 
         -- Lazy
         LazyButton              { Constant },
-        LazyButtonActive        { fg = slate[840], bg = sky[300] },
+        LazyButtonActive        { fg = gray[950], bg = sky[300] },
         LazyComment             { Comment },
         LazyDimmed              { Special },
         LazyH1                  { LazyButtonActive },
@@ -403,7 +427,7 @@ local theme = lush(function(injected_functions)
         MasonMutedBlock         { LazyButton },
 
         -- CMP
-        CmpDocNormal            { bg = slate[860] },
+        CmpDocNormal            { bg = gray[950] },
         CmpItemAbbrDeprecated   { Special },
         CmpItemAbbrMatch        { String },
         CmpItemAbbrMatchFuzzy   { CmpItemAbbrMatch },
@@ -412,10 +436,38 @@ local theme = lush(function(injected_functions)
 
         -- Copilot
         CopilotSuggestion       { Special },
+
+        -- Markdown (fix to prevent underscores showing as markdown errors)
+        markdownError           { ErrorMsg },
+
+        -- Gitsigns
+        GitSignsCurrentLineBlame { Comment },
+
+        -- Mini
+        MiniJump               { fg = green[200], gui = "nocombine" },
+        MiniJump2dSpot         { fg = green[200], bold = false, italic = false },
+        MiniStarterCurrent     { String },
+        MiniStarterFooter      { Comment },
+        MiniStarterHeader      { String },
+        MiniStarterInactive    { Comment },
+        MiniStarterItem        { Normal },
+        MiniStarterItemBullet  { String },
+        MiniStarterItemPrefix  { String },
+        MiniStatuslineDevinfo  { fg = gray[500], bg = gray[915] },
+        MiniStatuslineFileinfo { fg = gray[700], bg = gray[950] },
+        MiniStatuslineFilename { fg = gray[700], bg = gray[950] },
+        MiniStatuslineInactive { MiniStatuslineFileinfo },
+        MiniStatuslineLocation { MiniStatuslineDevinfo },
+        MiniTablineCurrent     { fg = sky[300], bg = gray[950] },
+        MiniTablineVisible     { Normal },
+        MiniTablineHidden      { fg = gray[700], bg = gray[950] },
+        MiniTablineModifiedCurrent { MiniTablineCurrent },
+        MiniTablineModifiedVisible { MiniTablineVisible },
+        MiniTablineModifiedHidden  { MiniTablineHidden },
+
+        MiniTrailspace         { TelescopePreviewTitle },
     }
 end)
 
 -- Return our parsed theme for extension or use elsewhere.
 return theme
-
--- vi:nowrap
